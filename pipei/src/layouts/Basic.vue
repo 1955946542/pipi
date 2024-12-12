@@ -2,15 +2,14 @@
 import { ref } from 'vue';
 import {showToast} from "vant";
 import index from "../pages/index.vue";
-import team from "../pages/team.vue";
-import setting from "../pages/setting.vue";
+import * as VueRouter from "vue-router";
 
-const onClickLeft = () => alert('左');
-const onClickRight = () => alert('右');
+const router = VueRouter.useRouter();
+const onClickLeft = () => router.back(); //放回上一个界面
+const onClickRight = () => {router.push({path:'/search'})}
 
 const active = ref("index");
 const onChange = (index) => showToast(`标签 ${index}`);
-
 </script>
 
 <template>
@@ -27,23 +26,14 @@ const onChange = (index) => showToast(`标签 ${index}`);
   </van-nav-bar>
 
   <div id="content">
-    <template v-if="active==='index'">
-      <index/>
-    </template>
-
-    <template v-if="active==='team'">
-      <team/>
-    </template>
-
-    <template v-if="active==='setting'">
-      <setting/>
-    </template>
+    <!--根据不同页面显示不同内容-->
+    <router-view></router-view>
   </div>
 
   <van-tabbar v-model="active" active-color="#ff9300" @change="onChange">
-    <van-tabbar-item icon="home-o" name="index">主页</van-tabbar-item>
-    <van-tabbar-item icon="friends-o" name="team">队伍</van-tabbar-item>
-    <van-tabbar-item icon="setting-o" name="setting">设置</van-tabbar-item>
+    <van-tabbar-item to="/" icon="home-o" name="index">主页</van-tabbar-item>
+    <van-tabbar-item to="/team" icon="friends-o" name="team">队伍</van-tabbar-item>
+    <van-tabbar-item to="/setting" icon="setting-o" name="setting">设置</van-tabbar-item>
   </van-tabbar>
 
 </template>

@@ -8,24 +8,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * MyBatis Plus 配置
+ * MyBatisPlus 配置
  *
- * @author https://github.com/liyupi
  */
 @Configuration
-@MapperScan("com.yupi.springbootinit.mapper")
-public class MyBatisPlusConfig {
+@MapperScan("com.donkin.pipi.mapper")
+public class MybatisPlusConfig {
 
     /**
-     * 拦截器配置
-     *
-     * @return
+     * 新的分页插件,一缓和二缓遵循mybatis的规则,需要设置 MybatisConfiguration#useDeprecatedExecutor = false 避免缓存出现问题(该属性会在旧插件移除后一同移除)
      */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        // 分页插件
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         return interceptor;
     }
+
 }

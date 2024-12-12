@@ -1,37 +1,15 @@
 # 线上配置文件
-# @author <a href="https://github.com/liyupi">程序员鱼皮</a>
-# @from <a href="https://yupi.icu">编程导航知识星球</a>
-server:
-  port: 8101
+
+# 注意开源时这个文件不要提交、或者不要填真实配置
 spring:
-  # 数据库配置
-  # todo 需替换配置
+  # DataSource Config
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/my_db
+    url: jdbc:mysql://localhost:3306/pipi
     username: root
     password: 123456
-  # Redis 配置
-  # todo 需替换配置
-  redis:
-    database: 1
-    host: localhost
-    port: 6379
-    timeout: 5000
-    password: 123456
-  # Elasticsearch 配置
-  # todo 需替换配置
-  elasticsearch:
-    uris: http://localhost:9200
-    username: root
-    password: 123456
-mybatis-plus:
-  configuration:
-    # 生产环境关闭日志
-    log-impl: ''
-# 接口文档配置
-knife4j:
-  basic:
-    enable: true
-    username: root
-    password: 123456
+  # session 失效时间
+  session:
+    timeout: 86400
+server:
+  address: 0.0.0.0

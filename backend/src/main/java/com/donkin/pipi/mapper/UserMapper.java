@@ -1,14 +1,14 @@
 package com.donkin.pipi.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+// [鱼皮的知识星球](https://t.zsxq.com/0emozsIJh) 从 0 到 1 求职指导，斩获 offer！1 对 1 简历优化服务、200+ 真实简历和建议参考、2000+ 求职面试经验分享、25w 字前后端精选面试题
+
 import com.donkin.pipi.model.domain.User;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
-* @author DELL
-* @description 针对表【user(用户)】的数据库操作Mapper
-* @createDate 2024-12-11 13:23:56
-* @Entity generator.domain.User
-*/
+ * 用户 Mapper
+ *
+ */
 public interface UserMapper extends BaseMapper<User> {
 
 }

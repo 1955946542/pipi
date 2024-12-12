@@ -3,32 +3,24 @@ package com.donkin.pipi.constant;
 /**
  * 用户常量
  *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 public interface UserConstant {
 
     /**
      * 用户登录态键
      */
-    String USER_LOGIN_STATE = "user_login";
+    String USER_LOGIN_STATE = "userLoginState";
 
-    //  region 权限
-
-    /**
-     * 默认角色
-     */
-    String DEFAULT_ROLE = "user";
+    //  ------- 权限 --------
 
     /**
-     * 管理员角色
+     * 默认权限
      */
-    String ADMIN_ROLE = "admin";
+    int DEFAULT_ROLE = 0;
 
     /**
-     * 被封号
+     * 管理员权限
      */
-    String BAN_ROLE = "ban";
+    int ADMIN_ROLE = 1;
 
-    // endregion
 }
