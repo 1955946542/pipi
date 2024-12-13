@@ -15,6 +15,7 @@ spring:
   session:
     timeout: 86400
     store-type: redis
+  # swagger 与 springboot 兼容配置
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER

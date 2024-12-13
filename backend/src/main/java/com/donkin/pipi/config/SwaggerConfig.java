@@ -27,7 +27,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .select()
                 // 这里一定要标注你控制器的位置
-                .apis(RequestHandlerSelectors.basePackage("com.yupi.yupao.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.donkin.pipi.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -43,6 +43,6 @@ public class SwaggerConfig {
                 .termsOfServiceUrl("https://github.com/1955946542")
                 .contact(new Contact("donkin","https://github.com/1955946542","xxx@qq.com"))
                 .version("1.0")
-                .build();
+                .build(); //最后一定要有这个 build
     }
 }

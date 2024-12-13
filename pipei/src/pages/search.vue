@@ -52,6 +52,12 @@ const selectedTags = computed(() => {
 const removeTag = (tagId) => {
   activeIds.value = activeIds.value.filter(id => id !== tagId);
 };
+
+// 跳转到搜索页面
+const doSearchResult = () => {
+  router.push({path: '/search/result', query: {tags: activeIds.value}});
+}
+
 </script>
 
 <template>
@@ -69,7 +75,7 @@ const removeTag = (tagId) => {
   <van-divider content-position="left">已选择标签</van-divider>
   <van-cell-group inset>
     <van-space wrap :size="[10, 10]">
-      <!-- 方案1：使用自定义空状态文本 -->
+      <!--使用自定义空状态文本 -->
       <template v-if="selectedTags.length">
         <van-tag
             v-for="tag in selectedTags"
@@ -94,11 +100,29 @@ const removeTag = (tagId) => {
       v-model:main-active-index="activeIndex"
       :items="filteredTags"
   />
+
+  <!--搜索按钮-->
+  <van-button 
+    block 
+    type="primary" 
+    @click="doSearchResult"
+    class="search-button"
+  >搜索</van-button>
+
 </template>
 
 <style scoped>
 .empty-text {
   color: #999;
   font-size: 14px;
+}
+
+.search-button {
+  margin: 16px;
+  position: fixed;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+  width: calc(100% - 32px);
 }
 </style>
