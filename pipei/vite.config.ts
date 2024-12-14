@@ -15,4 +15,15 @@ export default defineConfig({
       resolvers: [VantResolver()],
     }),
   ],
+
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure: false  // 忽略 SSL 证书验证
+      }
+    }
+  }
+
 })

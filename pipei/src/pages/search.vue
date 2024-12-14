@@ -53,7 +53,7 @@ const removeTag = (tagId) => {
   activeIds.value = activeIds.value.filter(id => id !== tagId);
 };
 
-// 跳转到搜索页面
+// 执行搜索
 const doSearchResult = () => {
   router.push({path: '/search/result', query: {tags: activeIds.value}});
 }
@@ -99,6 +99,7 @@ const doSearchResult = () => {
       v-model:active-id="activeIds"
       v-model:main-active-index="activeIndex"
       :items="filteredTags"
+      height="500"
   />
 
   <!--搜索按钮-->
@@ -112,6 +113,10 @@ const doSearchResult = () => {
 </template>
 
 <style scoped>
+:deep(.van-tree-select__content) {
+  overflow-y: auto !important;
+}
+
 .empty-text {
   color: #999;
   font-size: 14px;

@@ -31,7 +31,7 @@ import static com.donkin.pipi.constant.UserConstant.USER_LOGIN_STATE;
  */
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = {"http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:5173"}) //允许跨域的地址（前端地址）
 @Slf4j
 public class UserController {
 
@@ -108,8 +108,11 @@ public class UserController {
         return ResultUtils.success(list);
     }
 
+    // 根据标签进行搜索
+    // @RequestParam(required = false) 接口调用时，参数不必填（不然不填的报错信息很长，下面我们已经自己处理了）
     @GetMapping("/search/tags")
     public BaseResponse<List<User>> searchUsersByTags(@RequestParam(required = false) List<String> tagNameList) {
+        // 判断是否为空
         if (CollectionUtils.isEmpty(tagNameList)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
