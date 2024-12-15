@@ -13,7 +13,7 @@ spring:
     password: 123456
   # session 失效时间（分钟）
   session:
-    timeout: 86400
+    timeout: 86400 # 两个月
     store-type: redis
   # swagger 与 springboot 兼容配置
   mvc:
@@ -23,7 +23,7 @@ spring:
   redis:
     port: 6379
     host: localhost
-    database: 1
+    database: 0 # 有 16 个库号，默认使用 0
 server:
   port: 8080
   servlet:

@@ -1,6 +1,6 @@
 # 数据库初始化
 create
-database if not exists yupao;
+database if not exists pipi;
 
 # 更换为自己使用的数据库
 use

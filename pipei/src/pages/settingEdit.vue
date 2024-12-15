@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import myAxios from "../plugins/myAxios.ts";
+import {showFailToast, showSuccessToast} from "vant";
 
 const route = useRoute();
 const router = useRouter();
@@ -17,11 +19,19 @@ onMounted(() => {
   }
 })
 
-const onSubmit = () => {
+const onSubmit = async () => {
   console.log('要修改的字段：', editKey.value);
   console.log('修改后的值：', value.value);
-  // TODO: 这里之后添加调用后端接口的逻辑
-  router.back();
+  const res = await myAxios.post('/user/update',{
+    'id': 1, //todo 这里还没实现获取当前用户 id，因此使用假的
+    [editKey.value]:value.value, // [动态赋值] 不写死，因为每个修改可能不一样
+  })
+  if (res.success) {
+    showSuccessToast('修改成功');
+    router.back(); //返回前页
+  }else{
+    showFailToast("修改错误");
+  }
 }
 </script>
 

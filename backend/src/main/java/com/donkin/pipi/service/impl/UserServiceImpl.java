@@ -174,8 +174,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         return 1;
     }
 
+    // 个人信息更新
     @Override
     public int updateUser(User user, User loginUser) {
+        // 没传 ID 不允许修改
         long userId = user.getId();
         if (userId <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);

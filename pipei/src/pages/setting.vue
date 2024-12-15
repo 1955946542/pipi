@@ -1,18 +1,36 @@
 <script setup lang="ts">
-const user = {
-  id: 1,
-  username: "donkin",
-  userAccount: "1995",
-  avatarUrl: "https://tsundora.com/image/2018/04/karakai_jouzu_no_takagi-san_69.jpg",
-  gender: "男",
-  phone: "1778",
-  email: "1995",
-  planetCode: "null",
-  createTime: new Date(),
-}
 
 import { useRouter } from 'vue-router';
+import {onMounted, ref} from "vue";
+import myAxios from "../plugins/myAxios.ts";
+import {showFailToast} from "vant";
+
+// 使用原生 Date 对象格式化日期
+const formatDate = (date: string) => {
+  if (!date) return '';
+  const d = new Date(date);
+  return d.toLocaleString('zh-CN', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  });
+}
+
 const router = useRouter();
+
+const user = ref();
+onMounted(async ()=>{
+  const res = await myAxios.get('/user/current');
+  if (res.code === 0) {
+    user.value = res.data;
+  }else {
+    showFailToast("获取用户信息失败");
+  }
+})
 
 const toEdit = (key: string, value: string) => {
   router.push({
@@ -26,16 +44,19 @@ const toEdit = (key: string, value: string) => {
 </script>
 
 <template>
-  <van-cell title="昵称" is-link @click="toEdit('昵称', user.username)" :value="user.username"/>
-  <van-cell title="账号" :value="user.userAccount"/>
-  <van-cell title="头像" is-link @click="toEdit('头像', user.avatarUrl)">
-    <img alt style="height: 48px" :src="user.avatarUrl">
-  </van-cell>
-  <van-cell title="性别" is-link @click="toEdit('性别', String(user.gender))" :value="user.gender"/>
-  <van-cell title="电话" is-link @click="toEdit('电话', user.phone)" :value="user.phone"/>
-  <van-cell title="邮箱" is-link @click="toEdit('邮箱', user.email)" :value="user.email"/>
-  <van-cell title="星球编号" :value="user.planetCode"/>
-  <van-cell title="创建时间" :value="user.createTime.toISOString()"/>
+  <!--用户存在才加载-->
+  <template v-if="user">
+    <van-cell title="昵称" is-link @click="toEdit('昵称', user.username)" :value="user.username"/>
+    <van-cell title="账号" :value="user.userAccount"/>
+    <van-cell title="头像" is-link @click="toEdit('头像', user.avatarUrl)">
+      <img alt style="height: 48px" :src="user.avatarUrl">
+    </van-cell>
+    <van-cell title="性别" is-link @click="toEdit('性别', String(user.gender))" :value="user.gender"/>
+    <van-cell title="电话" is-link @click="toEdit('电话', user.phone)" :value="user.phone"/>
+    <van-cell title="邮箱" is-link @click="toEdit('邮箱', user.email)" :value="user.email"/>
+    <van-cell title="星球编号" :value="user.planetCode"/>
+    <van-cell title="创建时间" :value="formatDate(user.createTime)"/>
+  </template>
 </template>
 
 <style scoped>
