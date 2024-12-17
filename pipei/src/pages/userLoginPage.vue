@@ -3,6 +3,7 @@ import {ref} from "vue";
 import {useRouter} from "vue-router";
 import myAxios from "../plugins/myAxios.ts";
 import {showFailToast, showSuccessToast} from "vant";
+import userState, { setUserState } from "../global/userState.ts";
 
 const router = useRouter();
 
@@ -21,6 +22,9 @@ const onSubmit = async () => {
   })
   console.log(res);
   if(res.code === 0 && res.data) {
+    // 使用 setUserState 方法设置用户状态
+    setUserState(res.data);
+    console.log('保存后的用户状态:', userState.value); // 验证数据是否正确保存
     showSuccessToast("登录成功");
     router.push('/');
   }else{

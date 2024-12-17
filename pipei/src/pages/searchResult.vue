@@ -37,8 +37,8 @@ onMounted(async () => {
   .then(response => {
     console.log('完整的响应数据:', response);
     // 检查响应结构
-    if (response.data && response.data.code === 0) {  // 假设 0 是成功码
-      return response.data.data;
+    if (response.data && response.code===0) {
+      return response.data;
     } else {
       console.error('接口返回错误:', response.data);
       return [];
