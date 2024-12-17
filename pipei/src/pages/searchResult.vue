@@ -3,6 +3,7 @@ import {onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
 import myAxios from "../plugins/myAxios.ts";
 import * as qs from 'qs';
+import UserCardList from "../components/userCardList.vue";
 
 // 获取路由链接传来的参数
 const route = useRoute();
@@ -62,29 +63,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <van-card
-      v-for="user in userList"
-      :desc="user.userAccount"
-      :title="user.username"
-      :thumb="user.avatarUrl"
-  >
-    <template #tags>
-      <van-tag plain type="primary" v-for="tag in user.tags" style="margin-right: 8px;margin-top: 8px">
-        {{ tag }}
-      </van-tag>
-    </template>
-    <template #footer>
-      <van-button size="mini">查看详情</van-button>
-    </template>
-  </van-card>
-
-  <van-empty v-if="userList.length === 0"
-      image="https://fastly.jsdelivr.net/npm/@vant/assets/custom-empty-image.png"
-      image-size="80"
-      description="搜索结果为空"
-  />
-
-
+  <user-card-list :user-list="userList"/>
 </template>
 
 <style scoped>

@@ -144,10 +144,18 @@ public class UserController {
     }
 
     // todo 推荐多个，未实现
+
+    /**
+     *
+     * @param pageSize 页大小
+     * @param pageNum 页号
+     * @param request
+     * @return
+     */
     @GetMapping("/recommend")
     public BaseResponse<Page<User>> recommendUsers(long pageSize, long pageNum, HttpServletRequest request) {
         User loginUser = userService.getLoginUser(request);
-        String redisKey = String.format("yupao:user:recommend:%s", loginUser.getId());
+        String redisKey = String.format("pipi:user:recommend:%s", loginUser.getId());
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
         // 如果有缓存，直接读缓存
         Page<User> userPage = (Page<User>) valueOperations.get(redisKey);
@@ -156,7 +164,7 @@ public class UserController {
         }
         // 无缓存，查数据库
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        userPage = userService.page(new Page<>(pageNum, pageSize), queryWrapper);
+        userPage = userService.page(new Page<>(pageNum, pageSize), queryWrapper); // 分页处理，避免一次性向前端发送太多数据
         // 写缓存
         try {
             valueOperations.set(redisKey, userPage, 30000, TimeUnit.MILLISECONDS);

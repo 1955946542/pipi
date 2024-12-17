@@ -26,7 +26,7 @@ myAxios.interceptors.response.use(function (response) {
 
     // 如果是返回 response ，返回的是 AJAX 层级的 data，这个 data 里面再套了一层 data（这才是用户层的data）
     // 因此直接添加拦截器返回应用层的 data ，后面就不用套中取套
-    return response.data;
+    return response?.data;
 }, function (error) {
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
